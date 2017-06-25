@@ -3,9 +3,9 @@ FROM jvisser/base
 # Install dotdeb repo, PHP7, composer and selected extensions
 RUN apt-get update \
     && apt-get -y --no-install-recommends install php7.0-cli php7.0-curl \
-        php7.0-json php7.0-mcrypt php7.0-opcache php7.0-readline php7.0-xml php7.0-zip \
+        php7.0-json php7.0-mcrypt php7.0-opcache php7.0-readline php7.0-xml php7.0-zip php-xdebug \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/* ~/.composer
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 CMD ["php", "-a"]
 
