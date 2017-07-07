@@ -1,0 +1,16 @@
+#!/bin/sh
+echo "Running composer for PHP version: $IDE_PHP_VERSION\n";
+if [ "$IDE_PHP_VERSION" -eq "70" ]; then
+    PHP_VERSION='jvisser/php70-cli:latest';
+elif [ "$IDE_PHP_VERSION" -eq "71" ]; then
+    PHP_VERSION='jvisser/php71-cli:latest'
+else
+    PHP_VERSION='php:7.1-cli';
+fi
+
+exec docker run --rm --interactive --tty \
+    --user '1000:100' \
+    --volume "$PWD:$PWD" \
+    --workdir "$PWD" \
+    --entrypoint='php' \
+    $PHP_VERSION "$@"

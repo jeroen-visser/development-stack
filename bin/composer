@@ -1,0 +1,23 @@
+#!/bin/sh
+
+echo "Running composer for PHP version: $IDE_PHP_VERSION\n";
+if [ "$IDE_PHP_VERSION" -eq "7" ]; then
+    COMPOSER_VERSION='composer/composer:latest';
+elif [ "$IDE_PHP_VERSION" -eq "71" ]; then
+    COMPOSER_VERSION='prooph/composer:7.1'
+elif [ "$IDE_PHP_VERSION" -eq "5" ]; then
+    COMPOSER_VERSION='composer/composer:php5-alpine'
+else
+    COMPOSER_VERSION='composer/composer:latest';
+fi
+
+exec docker run \
+        $tty \
+        --interactive \
+        --rm \
+        --user $(id -u):$(id -g) \
+        --volume ~/composer/cache:/composer/cache \
+        --volume /etc/passwd:/etc/passwd:ro \
+        --volume /etc/group:/etc/group:ro \
+        --volume $(pwd):/app \
+        $COMPOSER_VERSION "$@"
