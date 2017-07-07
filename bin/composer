@@ -16,7 +16,8 @@ exec docker run \
         --interactive \
         --rm \
         --user $(id -u):$(id -g) \
-        --volume ~/composer/cache:/composer/cache \
+        -e COMPOSER_HOME="$HOME/.composer" \
+        --volume $HOME/.composer:$HOME/.composer \
         --volume /etc/passwd:/etc/passwd:ro \
         --volume /etc/group:/etc/group:ro \
         --volume $(pwd):/app \
